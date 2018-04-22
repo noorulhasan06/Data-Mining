@@ -74,6 +74,8 @@ df = pd.concat(frames,ignore_index=True)
 plotGraph('class','Original',0,0)
 totalElements = df.shape[0]
 kmeans = KMeans(n_clusters=5, random_state=0).fit(df)
+db = DBSCAN(eps=2, min_samples=10).fit(df)
+ag = AgglomerativeClustering(n_clusters=5, affinity='euclidean', linkage='ward').fit(df)
 
 df_kmeans =df
 df_kmeans['clus'] = kmeans.labels_
@@ -81,7 +83,6 @@ sse_h = SSE('clus')
 purity_h = Purity('clus')
 plotGraph('clus','Kmeans',sse_h, purity_h)
 
-db = DBSCAN(eps=1, min_samples=10).fit(df)
 df_dbscan = df
 df_dbscan['clus1'] = db.labels_
 labels = db.labels_
@@ -90,7 +91,6 @@ sse_h = SSE('clus1')
 purity_h = Purity('clus1')
 plotGraph('clus1','DBScan',sse_h,purity_h)
 
-ag = AgglomerativeClustering(n_clusters=5, affinity='euclidean', linkage='ward').fit(df)
 df_hier = df
 df_hier['clus2']= ag.labels_
 sse_h = SSE('clus2')
