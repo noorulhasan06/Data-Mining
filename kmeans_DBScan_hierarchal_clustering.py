@@ -16,15 +16,17 @@ def SSE(scheme):
                         totalH += result
         return totalH
 
+
 def Purity(scheme):
         totalPH = 0
-        for name, group in df_kmeans.groupby(['class']):
-                clus = np.array(group[scheme])
+        for name, group in df.groupby([scheme]):
+                clus = np.array(group['class'])
                 element = max(list(clus),key=list(clus).count)
                 nij = (list(clus)).count(element)
                 totalPH += nij
         purityH = totalPH/totalElements
         return purityH
+
 
 def plotGraph(scheme, algorithm, sse, purity):
         colors={0:'red',1:'blue',2:'green',3:'orange',4:'pink',-1:'black',5:'yellow',6:'magenta',7:'brown',8:'purple'}
@@ -42,8 +44,8 @@ def plotGraph(scheme, algorithm, sse, purity):
                 pyplot.title(algorithm+' clustering')
                 sse = "SSE: "+str('%.3f'%sse)
                 purity = "Purity: "+str('%.3f'%purity)
-                pyplot.text(38,27,sse)
-                pyplot.text(38,26,purity)
+                pyplot.text(26,-3,sse)
+                pyplot.text(26,-4,purity)
         else :
                 pyplot.title(algorithm)
         pyplot.show()
